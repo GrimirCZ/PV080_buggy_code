@@ -1,7 +1,8 @@
+import flask
+
 import sys 
 import os
 import yaml
-import flask
 
 app = flask.Flask(__name__)
 
@@ -14,7 +15,7 @@ def index():
 
         
 CONFIG = {"API_KEY": "771df488714111d39138eb60df756e6b"}
-class Person(object):
+class Person:
     def __init__(self, name):
         self.name = name
 
@@ -25,7 +26,12 @@ def print_nametag(format_string, person):
 
 def fetch_website(urllib_version, url):
     # Import the requested version (2 or 3) of urllib
-    exec(f"import urllib{urllib_version} as urllib", globals())
+    if urllib_version == 2:
+        import urllib2 as urllib
+    elif urllib_version == 3:
+        import urllib3 as urllib
+
+    #exec(f"import urllib{urllib_version} as urllib", globals())
     # Fetch and print the requested URL
  
     try: 
